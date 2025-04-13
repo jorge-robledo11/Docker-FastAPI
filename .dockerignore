@@ -1,0 +1,11 @@
+# Ignorar el directorio .git y el archivo .gitignore (para no copiar archivos de control de versiones)
+.git/
+.gitignore
+.vscode/
+
+# Ignorar notebooks
+*.ipynb
+*.ipynb_checkpoints
+
+__pycache__/
+*.pyc
