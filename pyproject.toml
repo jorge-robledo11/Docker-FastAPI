@@ -1,10 +1,11 @@
 [project]
 name = "venv-docker-fastapi"
 version = "0.1.0"
-description = ""
+description = "API para desplegar FastAPI con AutoGluon en Docker"
 authors = [
     {name = "Jorge Robledo",email = "robledo.11@hotmail.com"}
 ]
+package-mode = false
 readme = "README.md"
 requires-python = "3.12.9"
 dependencies = [
@@ -13,7 +14,6 @@ dependencies = [
     "uvicorn (>=0.34.1,<0.35.0)",
 ]
 
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -21,4 +21,3 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.1.1"
 ruff = "^0.11.5"
-

@@ -1,0 +1,23 @@
+version: '3.12.9'
+services:
+  server:
+    container_name: fastapi_server
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "5000:5000"
+    # El nombre del servicio será "server" y podrá usarse para acceder al contenedor desde otros servicios
+    # Puedes especificar network_mode si es necesario, pero por defecto docker-compose crea una red para los servicios
+
+  client:
+    container_name: fastapi_client
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    depends_on:
+      - server
+    environment:
+      - SERVER_HOST=server
+    # No es necesario mapear puertos para el cliente
+    command: ["python", "cliente.py"]

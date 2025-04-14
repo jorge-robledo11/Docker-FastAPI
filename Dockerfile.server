@@ -1,0 +1,26 @@
+# Usa una imagen base oficial de Python (puedes ajustar la versión según necesites)
+FROM python:3.12.9-slim-bookworm
+
+# Instala el paquete libgomp1 necesario para LightGBM
+RUN apt-get update && apt-get install -y libgomp1 && apt-get clean
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Instala Poetry de forma global
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir poetry
+
+# Copia el proyecto completo al contenedor (incluye pyproject.toml, poetry.lock, código, etc.)
+COPY . /app/
+
+# Instala las dependencias usando Poetry.
+# Se configura para no crear virtualenvs y se evita instalar el propio proyecto (--no-root).
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-root
+
+# Expone el puerto que utilizará la aplicación
+EXPOSE 5000
+
+# Comando para arrancar el servidor de FastAPI y, para pruebas, ejecutar el cliente.
+# Nota: En producción es recomendable separar estos procesos en contenedores distintos.
+CMD ["uvicorn", "servidor:app", "--host", "0.0.0.0", "--port", "5000"]
